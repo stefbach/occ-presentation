@@ -143,7 +143,7 @@ function Scene5() {
       </Sprite>
 
       {/* Map — top right */}
-      <Sprite start={1} end={25}>
+      <Sprite start={1} end={42.5}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.7, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -165,7 +165,7 @@ function Scene5() {
       </Sprite>
 
       {/* Big stats row */}
-      <Sprite start={6} end={25}>
+      <Sprite start={6} end={42.5}>
         <div style={{
           position:'absolute',
           left: 96, right: 96, bottom: 200,
@@ -180,7 +180,7 @@ function Scene5() {
       </Sprite>
 
       {/* Caption */}
-      <Sprite start={9} end={25}>
+      <Sprite start={9} end={42.5}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.6, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);

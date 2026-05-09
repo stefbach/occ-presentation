@@ -36,20 +36,19 @@ function PortraitFinal() {
       background:'#0a1422',
       overflow:'hidden',
     }}>
-      <img src={"assets_in/Capture d'\u0065\u0301cran 2026-05-07 a\u0300 22.25.36.png"}
+      <img src={"assets/bach.png"}
         alt="Dr Stéphane Bach"
         style={{
           position:'absolute', inset:0,
           width:'100%', height:'100%',
           objectFit:'cover',
           objectPosition:'center 25%',
-          filter:'contrast(1.05) saturate(0.85) brightness(0.85)',
+          filter:'contrast(1.08) saturate(0.95) brightness(1.05)',
         }}/>
-      {/* Color overlay for cinematic mood */}
+      {/* Subtle right-side gradient so text on right reads cleanly */}
       <div style={{
         position:'absolute', inset:0,
-        background:'linear-gradient(180deg, rgba(14,27,44,0.25) 0%, rgba(14,27,44,0.55) 100%)',
-        mixBlendMode:'multiply',
+        background:'linear-gradient(90deg, transparent 0%, transparent 45%, rgba(14,27,44,0.55) 78%, rgba(14,27,44,0.85) 100%)',
       }}/>
     </div>
   );
@@ -61,27 +60,21 @@ function Scene6() {
 
   return (
     <div style={{ position:'absolute', inset:0, background:'#000' }}>
-      {/* Slowly fade portrait → black */}
+      {/* Portrait — kept fully visible nearly to the end */}
       <div style={{
         position:'absolute', inset:0,
-        opacity: 1 - Easing.easeInCubic(clamp((localTime - 5) / 3, 0, 1)) * 0.85,
+        opacity: 1 - Easing.easeInCubic(clamp((localTime - 12) / 4, 0, 1)) * 0.4,
         transform:`scale(${1.0 + 0.04*kb})`,
-        transformOrigin:'50% 50%',
+        transformOrigin:'40% 50%',
       }}>
         <PortraitFinal/>
       </div>
 
-      <Vignette strength={0.55}/>
-      <FilmGrain opacity={0.07}/>
+      <Vignette strength={0.4}/>
+      <FilmGrain opacity={0.06}/>
 
-      {/* Dim overlay so center text reads */}
-      <div style={{
-        position:'absolute', inset:0,
-        background:'linear-gradient(180deg, rgba(14,27,44,0.55) 0%, rgba(14,27,44,0.7) 100%)',
-      }}/>
-
-      {/* The mantra: 3 stanzas */}
-      <Sprite start={0.5} end={6}>
+      {/* Mantra: anchored on the right where the portrait fades into navy */}
+      <Sprite start={0.625} end={7.5}>
         {({ localTime: lt }) => {
           const lines = [
             { text: 'Three years.', t: 0.0 },
@@ -91,9 +84,9 @@ function Scene6() {
           return (
             <div style={{
               position:'absolute',
-              left:'50%', top:'50%',
-              transform:'translate(-50%, -50%)',
-              textAlign:'center',
+              right: 96, top: '50%',
+              transform:'translateY(-50%)',
+              textAlign:'right',
               zIndex: 30,
             }}>
               {lines.map((l, i) => {
@@ -101,7 +94,7 @@ function Scene6() {
                 return (
                   <div key={i} style={{
                     fontFamily: FONT_DISPLAY,
-                    fontSize: 84,
+                    fontSize: 76,
                     fontWeight: 400,
                     color: l.color || '#F4EFE6',
                     letterSpacing:'-0.03em',
@@ -109,6 +102,7 @@ function Scene6() {
                     opacity: t,
                     transform:`translateX(${(1-t)*30}px)`,
                     fontStyle: l.italic ? 'italic' : 'normal',
+                    textShadow:'0 4px 24px rgba(0,0,0,0.6)',
                   }}>{l.text}</div>
                 );
               })}
@@ -118,7 +112,7 @@ function Scene6() {
       </Sprite>
 
       {/* The conviction sentence */}
-      <Sprite start={5} end={8.8}>
+      <Sprite start={6.25} end={11}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.8, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -135,15 +129,16 @@ function Scene6() {
             }}>
               <div style={{
                 fontFamily: FONT_DISPLAY,
-                fontSize: 60,
+                fontSize: 56,
                 fontStyle:'italic',
                 color:'#F4EFE6',
                 letterSpacing:'-0.025em',
                 lineHeight: 1.15,
                 fontWeight: 400,
               }}>
-                "No patient should die<br/>
-                <span style={{ color:'#D9613A' }}>waiting for their operation.</span>"
+                "Helping patients suffer less<br/>
+                from obesity and its<br/>
+                <span style={{ color:'#D9613A' }}>associated complications.</span>"
               </div>
               <div style={{
                 marginTop: 56,
@@ -158,8 +153,68 @@ function Scene6() {
         }}
       </Sprite>
 
+      {/* Trio of doctors before the logo */}
+      <Sprite start={7.75} end={13.75}>
+        {({ localTime: lt, duration: d }) => {
+          const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
+          const opAll = 1 - Easing.easeInCubic(exit);
+          const docs = [
+            { src: "assets/bach.png", name: 'Dr Stéphane Bach', role: 'Co-founder' },
+            { src: "assets/manos.png", name: 'Dr Thierry Manos', role: 'Co-founder' },
+            { src: "assets/nedelcu.png", name: 'Dr Marius Nedelcu', role: 'Surgical Coordinator' },
+          ];
+          return (
+            <div style={{
+              position:'absolute',
+              left:'50%', top:'50%',
+              transform:'translate(-50%, -50%)',
+              display:'flex', gap: 40,
+              zIndex: 36,
+              opacity: opAll,
+            }}>
+              {docs.map((d, i) => {
+                const t = Easing.easeOutCubic(clamp((lt - i*0.25) / 0.7, 0, 1));
+                return (
+                  <div key={i} style={{
+                    width: 360,
+                    opacity: t,
+                    transform:`translateY(${(1-t)*30}px)`,
+                  }}>
+                    <div style={{
+                      width:'100%', height: 460,
+                      overflow:'hidden', background:'#0a1422',
+                      boxShadow:'0 30px 60px rgba(0,0,0,0.5)',
+                      borderBottom:'3px solid #D9613A',
+                    }}>
+                      <img src={d.src} alt={d.name} style={{
+                        width:'100%', height:'100%', objectFit:'cover',
+                        objectPosition:'center 25%',
+                        filter:'contrast(1.05) saturate(0.95)',
+                      }}/>
+                    </div>
+                    <div style={{
+                      marginTop: 18,
+                      fontFamily: FONT_DISPLAY, fontSize: 28, fontWeight: 500,
+                      color:'#F4EFE6', letterSpacing:'-0.02em', lineHeight: 1.05,
+                      textAlign:'center',
+                    }}>{d.name}</div>
+                    <div style={{
+                      marginTop: 6,
+                      fontFamily: FONT_MONO, fontSize: 10,
+                      color:'rgba(244,239,230,0.6)',
+                      letterSpacing:'0.28em', textTransform:'uppercase',
+                      textAlign:'center',
+                    }}>{d.role}</div>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        }}
+      </Sprite>
+
       {/* Logo + tagline lockup at end */}
-      <Sprite start={8.9} end={14}>
+      <Sprite start={14} end={25}>
         {({ localTime: lt }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.5, 0, 1));
           const glow = clamp((lt - 0.3) / 1.2, 0, 1);

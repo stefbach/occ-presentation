@@ -120,8 +120,8 @@ function Scene2() {
         <ChapterMarker chapter="02" year="MARCH 2023" title={"The starting point.\nMalta."} />
       </Sprite>
 
-      {/* Stat reveal in second half */}
-      <Sprite start={9} end={20}>
+      {/* Intuition reveal — Malta as Mediterranean alternative */}
+      <Sprite start={9} end={26}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.8, 0, 1));
           const exit = clamp((lt - (d - 0.6)) / 0.6, 0, 1);
@@ -145,7 +145,7 @@ function Scene2() {
                 fontWeight: 400, color:'#F4EFE6',
                 letterSpacing:'-0.02em', lineHeight: 1.1,
                 maxWidth: 620,
-              }}>The Mediterranean platform<br/>for bariatric medical tourism.</div>
+              }}>An alternative to Turkey.<br/>Quality medicine in the Mediterranean.</div>
               <div style={{
                 marginTop: 22, display:'flex', gap: 32, justifyContent:'flex-end',
                 fontFamily: FONT_SANS, fontSize: 14,
@@ -156,6 +156,58 @@ function Scene2() {
                 <span>· European</span>
                 <span>· Crossroads</span>
               </div>
+            </div>
+          );
+        }}
+      </Sprite>
+
+      {/* The price wall — second-half reveal */}
+      <Sprite start={26} end={56}>
+        {({ localTime: lt, duration: d }) => {
+          const t = Easing.easeOutCubic(clamp(lt / 0.9, 0, 1));
+          const exit = clamp((lt - (d - 0.6)) / 0.6, 0, 1);
+          const op = t * (1 - Easing.easeInCubic(exit));
+          return (
+            <div style={{
+              position:'absolute', left: 96, bottom: 180,
+              opacity: op,
+              transform:`translateY(${(1-t)*16}px)`,
+              zIndex: 30,
+            }}>
+              <div style={{
+                fontFamily: FONT_MONO, fontSize: 12,
+                color:'#D9613A', letterSpacing:'0.3em',
+                textTransform:'uppercase',
+              }}>The wall</div>
+              <div style={{
+                marginTop: 14,
+                fontFamily: FONT_DISPLAY, fontSize: 38,
+                fontWeight: 400, color:'#F4EFE6',
+                letterSpacing:'-0.02em', lineHeight: 1.15,
+                maxWidth: 720,
+              }}>Quality had a price patients<br/>could not afford.</div>
+
+              <div style={{
+                marginTop: 28,
+                display:'flex', gap: 40, alignItems:'flex-end',
+              }}>
+                <div>
+                  <div style={{ fontFamily: FONT_MONO, fontSize: 11, letterSpacing:'0.25em', color:'rgba(244,239,230,0.55)', textTransform:'uppercase' }}>Malta</div>
+                  <div style={{ fontFamily: FONT_DISPLAY, fontSize: 64, color:'#F4EFE6', letterSpacing:'-0.03em', lineHeight: 1 }}>€5,500</div>
+                </div>
+                <div style={{ paddingBottom: 14, fontFamily: FONT_MONO, fontSize: 12, color:'rgba(244,239,230,0.4)', letterSpacing:'0.2em' }}>VS</div>
+                <div>
+                  <div style={{ fontFamily: FONT_MONO, fontSize: 11, letterSpacing:'0.25em', color:'rgba(244,239,230,0.55)', textTransform:'uppercase' }}>Turkey</div>
+                  <div style={{ fontFamily: FONT_DISPLAY, fontSize: 64, color:'rgba(244,239,230,0.55)', letterSpacing:'-0.03em', lineHeight: 1 }}>€3,000</div>
+                </div>
+              </div>
+
+              <div style={{
+                marginTop: 22,
+                fontFamily: FONT_SANS, fontSize: 16,
+                color:'rgba(244,239,230,0.7)', letterSpacing:'0.02em', maxWidth: 560,
+                lineHeight: 1.4,
+              }}>Even with quality care, the gap was too wide. We needed a different model — one where the patient would no longer have to pay.</div>
             </div>
           );
         }}
