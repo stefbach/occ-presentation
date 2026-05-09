@@ -1,9 +1,9 @@
 // scene1.jsx — Founding Friendship (0:00 – 0:18)
 // Bach + Manos co-equal, with real photos
 
-const PHOTO_BACH    = "assets_in/Capture d'\u0065\u0301cran 2026-05-07 a\u0300 22.25.36.png";
-const PHOTO_MANOS   = "assets_in/Capture d'\u0065\u0301cran 2026-05-07 a\u0300 22.25.50.png";
-const PHOTO_NEDELCU = "assets_in/Capture d'\u0065\u0301cran 2026-05-07 a\u0300 22.26.55.png";
+const PHOTO_BACH    = "assets/bach.png";
+const PHOTO_MANOS   = "assets/manos.png";
+const PHOTO_NEDELCU = "assets/nedelcu.png";
 
 function PortraitCard({ src, name, role, side = 'left', delay = 0 }) {
   const { localTime } = useSprite();
@@ -71,7 +71,7 @@ function Scene1() {
       }}/>
 
       {/* Two co-equal portraits */}
-      <Sprite start={0.5} end={17.5}>
+      <Sprite start={0.5} end={39.5}>
         <PortraitCard
           src={PHOTO_BACH}
           name="Dr Stéphane Bach"
@@ -80,7 +80,7 @@ function Scene1() {
           delay={0.0}
         />
       </Sprite>
-      <Sprite start={0.5} end={17.5}>
+      <Sprite start={0.5} end={39.5}>
         <PortraitCard
           src={PHOTO_MANOS}
           name="Dr Thierry Manos"
@@ -91,7 +91,7 @@ function Scene1() {
       </Sprite>
 
       {/* Center connector */}
-      <Sprite start={2.5} end={17.5}>
+      <Sprite start={2.5} end={39.5}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 1.0, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -139,6 +139,22 @@ function Scene1() {
                 letterSpacing:'-0.01em', lineHeight: 1.3,
                 fontStyle:'italic',
               }}>Obesity kills.<br/>No one treats it<br/>at scale.</div>
+
+              <div style={{
+                marginTop: 28, paddingTop: 18,
+                borderTop:'1px solid rgba(244,239,230,0.18)',
+              }}>
+                <div style={{
+                  fontFamily: FONT_MONO, fontSize: 10,
+                  color:'rgba(244,239,230,0.55)', letterSpacing:'0.28em',
+                  textTransform:'uppercase',
+                }}>From day one</div>
+                <div style={{
+                  marginTop: 6,
+                  fontFamily: FONT_DISPLAY, fontSize: 19, fontWeight: 500,
+                  color:'#F4EFE6', letterSpacing:'-0.01em', lineHeight: 1.25,
+                }}>An established<br/>collaboration with <span style={{ color:'#D9613A' }}>ELSAN</span>.</div>
+              </div>
             </div>
           );
         }}

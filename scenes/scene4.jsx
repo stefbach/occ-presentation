@@ -192,12 +192,12 @@ function Scene4() {
       {/* Top: chapter marker */}
       <Sprite start={0.3} end={5}>
         <div style={{ position:'absolute', top: 110, left: 96, zIndex: 30 }}>
-          <ChapterMarker chapter="04" year="THE REVELATION" title="A forgotten right." />
+          <ChapterMarker chapter="03" year="THE REVELATION" title="A forgotten right." />
         </div>
       </Sprite>
 
       {/* Two flags top */}
-      <Sprite start={1.5} end={24}>
+      <Sprite start={1.5} end={47.5}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.8, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -228,12 +228,12 @@ function Scene4() {
       </Sprite>
 
       {/* Bridge line */}
-      <Sprite start={3} end={24}>
+      <Sprite start={3} end={47.5}>
         {({ localTime: lt }) => <FlagBridge ltime={lt}/>}
       </Sprite>
 
       {/* The form, centerpiece */}
-      <Sprite start={4} end={24}>
+      <Sprite start={4} end={47.5}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutBack(clamp(lt / 0.9, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -256,7 +256,7 @@ function Scene4() {
       </Sprite>
 
       {/* Bottom kicker */}
-      <Sprite start={18} end={24}>
+      <Sprite start={26.7} end={47.5}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.6, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -283,7 +283,7 @@ function Scene4() {
         }}
       </Sprite>
 
-      <ShotChrome scene="04 / S2 · TCA 2020" shot="D004"/>
+      <ShotChrome scene="03 / S2 · TCA 2020" shot="D004"/>
     </div>
   );
 }

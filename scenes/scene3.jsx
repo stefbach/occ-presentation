@@ -93,12 +93,12 @@ function Scene3() {
       <Vignette strength={0.4}/>
       <FilmGrain opacity={0.06}/>
 
-      <Sprite start={0.3} end={5}>
-        <ChapterMarker chapter="03" year="LATE 2025" title="France joins." />
+      <Sprite start={0.3} end={5.5}>
+        <ChapterMarker chapter="04" year="LATE 2025" title="France: the answer." />
       </Sprite>
 
-      {/* Why France: highest standard, S2-eligible */}
-      <Sprite start={2.5} end={9}>
+      {/* Turkey contrast — bottom-left callout */}
+      <Sprite start={14} end={45}>
         {({ localTime: lt, duration: d }) => {
           const t = Easing.easeOutCubic(clamp(lt / 0.7, 0, 1));
           const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
@@ -106,9 +106,133 @@ function Scene3() {
           return (
             <div style={{
               position:'absolute',
-              right: 96, top: 130, width: 620,
+              left: 96, bottom: 130, width: 760,
+              opacity: op,
+              transform:`translateY(${(1-t)*20}px)`,
+              zIndex: 26,
+            }}>
+              <div style={{
+                display:'flex', gap: 28, alignItems:'stretch',
+              }}>
+                {/* Turkey side */}
+                <div style={{
+                  flex: 1, padding: '20px 24px',
+                  background:'rgba(244,239,230,0.05)',
+                  border:'1px solid rgba(244,239,230,0.18)',
+                  position:'relative',
+                }}>
+                  <div style={{
+                    fontFamily: FONT_MONO, fontSize: 10,
+                    color:'rgba(244,239,230,0.55)', letterSpacing:'0.28em',
+                    textTransform:'uppercase',
+                  }}>Turkey · €2,500</div>
+                  <div style={{
+                    marginTop: 10,
+                    fontFamily: FONT_DISPLAY, fontSize: 22, fontWeight: 500,
+                    color:'rgba(244,239,230,0.85)', letterSpacing:'-0.01em',
+                    lineHeight: 1.25,
+                  }}>Low cost.<br/>
+                    <span style={{ color:'rgba(244,239,230,0.55)', fontStyle:'italic' }}>Not the same standards of care.</span>
+                  </div>
+                </div>
+                {/* France side */}
+                <div style={{
+                  flex: 1, padding: '20px 24px',
+                  background:'rgba(217,97,58,0.12)',
+                  border:'1px solid #D9613A',
+                  position:'relative',
+                }}>
+                  <div style={{
+                    fontFamily: FONT_MONO, fontSize: 10,
+                    color:'#D9613A', letterSpacing:'0.28em',
+                    textTransform:'uppercase',
+                  }}>France · OCC</div>
+                  <div style={{
+                    marginTop: 10,
+                    fontFamily: FONT_DISPLAY, fontSize: 22, fontWeight: 500,
+                    color:'#F4EFE6', letterSpacing:'-0.01em',
+                    lineHeight: 1.25,
+                  }}>European standards.<br/>
+                    <span style={{ color:'#F4EFE6', fontStyle:'italic' }}>Same care as a French citizen.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Sprite>
+
+      {/* ELSAN / Bouchard partnership card */}
+      <Sprite start={3} end={45}>
+        {({ localTime: lt, duration: d }) => {
+          const t = Easing.easeOutCubic(clamp(lt / 0.7, 0, 1));
+          const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
+          const op = t * (1 - Easing.easeInCubic(exit));
+          return (
+            <div style={{
+              position:'absolute',
+              right: 96, top: 130, width: 560,
               opacity: op,
               transform:`translateX(${(1-t)*30}px)`,
+              zIndex: 25,
+            }}>
+              <div style={{
+                background:'#F4EFE6', color:'#0E1B2C',
+                borderLeft:'4px solid #D9613A',
+                overflow:'hidden',
+              }}>
+                <div style={{ width:'100%', height: 220, overflow:'hidden', background:'#0a1422' }}>
+                  <img src={"assets/nedelcu.png"}
+                    alt="Dr Marius Nedelcu"
+                    style={{
+                      width:'100%', height:'100%', objectFit:'cover',
+                      objectPosition:'center 25%',
+                      filter:'contrast(1.05) saturate(0.95)',
+                    }}/>
+                </div>
+                <div style={{ padding: '24px 28px' }}>
+                  <div style={{
+                    fontFamily: FONT_MONO, fontSize: 11, letterSpacing:'0.25em',
+                    color:'#A6431F', textTransform:'uppercase',
+                  }}>An established collaboration</div>
+                  <div style={{
+                    marginTop: 8,
+                    fontFamily: FONT_DISPLAY, fontSize: 30,
+                    fontWeight: 500, letterSpacing:'-0.02em',
+                    lineHeight: 1.05,
+                  }}>ELSAN · Bouchard<br/>Private Hospital</div>
+                  <div style={{
+                    marginTop: 4, fontFamily: FONT_SANS, fontSize: 14,
+                    color:'rgba(14,27,44,0.6)', letterSpacing:'0.02em',
+                  }}>Marseille, France</div>
+                  <div style={{
+                    marginTop: 16, paddingTop: 14,
+                    borderTop: '1px solid rgba(14,27,44,0.15)',
+                    fontFamily: FONT_SANS, fontSize: 14, lineHeight: 1.55,
+                    color:'#1B2D45',
+                  }}>
+                    Coordinated by <strong>Dr Marius Nedelcu</strong> —<br/>
+                    one of Europe's leading bariatric surgeons.
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Sprite>
+
+      {/* Why France: identical surgical standard, S2-eligible */}
+      <Sprite start={5} end={45}>
+        {({ localTime: lt, duration: d }) => {
+          const t = Easing.easeOutCubic(clamp(lt / 0.7, 0, 1));
+          const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
+          const op = t * (1 - Easing.easeInCubic(exit));
+          return (
+            <div style={{
+              position:'absolute',
+              left: 96, top: 130, width: 720,
+              opacity: op,
+              transform:`translateX(${(1-t)*-20}px)`,
               zIndex: 25,
             }}>
               <div style={{
@@ -118,115 +242,36 @@ function Scene3() {
               }}>Why France</div>
               <div style={{
                 marginTop: 14,
-                fontFamily: FONT_DISPLAY, fontSize: 44,
+                fontFamily: FONT_DISPLAY, fontSize: 56,
                 fontStyle:'italic', color:'#F4EFE6',
-                letterSpacing:'-0.025em', lineHeight: 1.1,
+                letterSpacing:'-0.025em', lineHeight: 1.05,
                 fontWeight: 400,
-              }}>One of the highest<br/>standards of care<br/>in the world.</div>
+              }}>The same surgery.<br/>The same care pathway.<br/>French standards.</div>
               <div style={{
-                marginTop: 22, paddingTop: 18,
+                marginTop: 28, paddingTop: 20,
                 borderTop:'1px solid rgba(244,239,230,0.2)',
-                fontFamily: FONT_SANS, fontSize: 16, lineHeight: 1.55,
-                color:'rgba(244,239,230,0.8)',
+                fontFamily: FONT_SANS, fontSize: 17, lineHeight: 1.55,
+                color:'rgba(244,239,230,0.85)',
+                maxWidth: 600,
               }}>
                 Malta's health system did not allow the S2 pathway.<br/>
-                <span style={{ color:'#F4EFE6' }}>France did.</span> Late 2025, our French dimension begins.
+                <span style={{ color:'#F4EFE6' }}>France did.</span>
               </div>
+              <div style={{
+                marginTop: 24,
+                fontFamily: FONT_DISPLAY, fontSize: 22,
+                fontStyle:'italic',
+                color:'rgba(244,239,230,0.7)',
+                letterSpacing:'-0.005em',
+                lineHeight: 1.35,
+                maxWidth: 560,
+              }}>Identical to what every French citizen receives —<br/>nothing less.</div>
             </div>
           );
         }}
       </Sprite>
 
-      {/* The 3-step French protocol — centerpiece */}
-      <Sprite start={9} end={20.5}>
-        {({ localTime: lt, duration: d }) => {
-          const head = Easing.easeOutCubic(clamp(lt / 0.6, 0, 1));
-          const exit = clamp((lt - (d - 0.5)) / 0.5, 0, 1);
-          const op = head * (1 - Easing.easeInCubic(exit));
-          return (
-            <div style={{
-              position:'absolute', inset:0,
-              opacity: op,
-              zIndex: 30,
-            }}>
-              {/* Header */}
-              <div style={{
-                position:'absolute',
-                top: 130, left: 96, right: 96,
-                transform:`translateY(${(1-head)*16}px)`,
-              }}>
-                <div style={{
-                  fontFamily: FONT_MONO, fontSize: 11,
-                  color:'#D9613A', letterSpacing:'0.3em',
-                  textTransform:'uppercase',
-                }}>The french protocol</div>
-                <div style={{
-                  marginTop: 12,
-                  fontFamily: FONT_DISPLAY, fontSize: 64,
-                  fontWeight: 400, color:'#F4EFE6',
-                  letterSpacing:'-0.03em', lineHeight: 1.0,
-                }}>Three steps. One continuous<br/>journey of care.</div>
-              </div>
-
-              {/* Steps row */}
-              <div style={{
-                position:'absolute',
-                left: 96, right: 96, bottom: 200,
-                display:'flex', gap: 56,
-              }}>
-                <ProtocolStep
-                  idx="01"
-                  kicker="Bilan préopératoire"
-                  title="Pre-operative assessment."
-                  desc="A complete workup — every examination, every specialist — to confirm the right path forward."
-                  delay={0.6}
-                />
-                <ProtocolStep
-                  idx="02"
-                  kicker="Intervention"
-                  title="Surgery, one month later."
-                  desc="Performed in France by leading bariatric surgeons, in a hospital meeting the highest European standards."
-                  delay={1.1}
-                />
-                <ProtocolStep
-                  idx="03"
-                  kicker="Suivi"
-                  title="Long-term follow-up."
-                  desc="Post-op review — and continuous support in between. We never let our patients down."
-                  delay={1.6}
-                />
-              </div>
-
-              {/* Connecting flow line */}
-              <svg style={{
-                position:'absolute',
-                left: 96, right: 96, bottom: 384,
-                width: 'calc(100% - 192px)', height: 4,
-              }}>
-                <line x1="0" y1="2" x2="100%" y2="2"
-                  stroke="#D9613A" strokeWidth="1" strokeDasharray="3 6"
-                  opacity={clamp((lt - 1.2) / 1.0, 0, 1)}/>
-              </svg>
-
-              {/* Bottom kicker */}
-              <div style={{
-                position:'absolute',
-                left: 96, bottom: 120,
-                opacity: clamp((lt - 2.0) / 0.8, 0, 1),
-                transform: `translateY(${(1 - clamp((lt - 2.0)/0.8,0,1)) * 12}px)`,
-              }}>
-                <div style={{
-                  fontFamily: FONT_DISPLAY, fontSize: 26,
-                  fontStyle:'italic', color:'rgba(244,239,230,0.85)',
-                  letterSpacing:'-0.01em',
-                }}>"Between each step — we never drop you."</div>
-              </div>
-            </div>
-          );
-        }}
-      </Sprite>
-
-      <ShotChrome scene="03 / FRANCE · LATE 2025" shot="C022"/>
+      <ShotChrome scene="04 / FRANCE · LATE 2025" shot="C022"/>
     </div>
   );
 }
