@@ -204,6 +204,55 @@ function Scene5() {
       </Sprite>
 
       <ShotChrome scene="05 / NUMBERS · 2026" shot="E007"/>
+
+      {/* Martigues clinic — top-left, doesn't cover the map on the right */}
+      <Sprite start={25} end={32.5}>
+        {({ localTime: lt, duration: d }) => {
+          const t = Easing.easeOutCubic(clamp(lt / 0.8, 0, 1));
+          const exit = clamp((lt - (d - 0.7)) / 0.7, 0, 1);
+          const op = t * (1 - Easing.easeInCubic(exit));
+          return (
+            <div style={{
+              position:'absolute',
+              left: 96, top: 220,
+              transform:`translateX(${(1-t)*-60}px)`,
+              width: 460,
+              opacity: op,
+              zIndex: 35,
+              boxShadow:'0 40px 100px rgba(0,0,0,0.65)',
+              borderLeft:'3px solid #D9613A',
+            }}>
+              <div style={{ width:'100%', height: 280, overflow:'hidden', background:'#0a1422' }}>
+                <img src="assets/clinique-martigues.jpg" alt="Clinique de Martigues"
+                  style={{
+                    width:'100%', height:'100%', objectFit:'cover',
+                    transform:`scale(${1.04 + 0.05*t})`,
+                    filter:'contrast(1.05) saturate(0.95)',
+                  }}/>
+              </div>
+              <div style={{
+                padding:'18px 22px',
+                background:'#F4EFE6', color:'#0E1B2C',
+              }}>
+                <div style={{
+                  fontFamily: FONT_MONO, fontSize: 10,
+                  letterSpacing:'0.3em', color:'#A6431F', textTransform:'uppercase',
+                }}>Joining the network</div>
+                <div style={{
+                  marginTop: 6,
+                  fontFamily: FONT_DISPLAY, fontSize: 24, fontWeight: 500,
+                  letterSpacing:'-0.02em', lineHeight: 1.05,
+                }}>Clinique de Martigues</div>
+                <div style={{
+                  marginTop: 4,
+                  fontFamily: FONT_SANS, fontSize: 13,
+                  color:'rgba(14,27,44,0.6)',
+                }}>A second establishment, joining soon.</div>
+              </div>
+            </div>
+          );
+        }}
+      </Sprite>
     </div>
   );
 }
