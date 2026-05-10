@@ -93,6 +93,81 @@ function Scene3() {
       <Vignette strength={0.4}/>
       <FilmGrain opacity={0.06}/>
 
+      {/* Marseille hero photo — full bleed, slow Ken Burns, fades out as protocol takes over */}
+      <Sprite start={13} end={26}>
+        {({ localTime: lt, duration: d }) => {
+          const t = Easing.easeOutCubic(clamp(lt / 1.2, 0, 1));
+          const exit = clamp((lt - (d - 1.0)) / 1.0, 0, 1);
+          const op = t * (1 - Easing.easeInCubic(exit)) * 0.85;
+          const kbz = 1.05 + 0.06 * (lt / d);
+          return (
+            <div style={{
+              position:'absolute', inset:0,
+              opacity: op,
+              zIndex: 12,
+              overflow:'hidden',
+            }}>
+              <img src="assets/marseille.jpg" alt="Marseille"
+                style={{
+                  position:'absolute', inset:0,
+                  width:'100%', height:'100%', objectFit:'cover',
+                  objectPosition:'center 40%',
+                  transform:`scale(${kbz}) translateX(${-20*t}px)`,
+                  filter:'contrast(1.05) saturate(0.95) brightness(0.92)',
+                }}/>
+              <div style={{
+                position:'absolute', inset:0,
+                background:'linear-gradient(180deg, rgba(14,27,44,0.35) 0%, rgba(14,27,44,0.55) 60%, rgba(14,27,44,0.85) 100%)',
+              }}/>
+            </div>
+          );
+        }}
+      </Sprite>
+
+      {/* Bouchard clinic photo card — bottom-left, doesn't overlap Nedelcu card on right */}
+      <Sprite start={16} end={32}>
+        {({ localTime: lt, duration: d }) => {
+          const t = Easing.easeOutCubic(clamp(lt / 0.8, 0, 1));
+          const exit = clamp((lt - (d - 0.7)) / 0.7, 0, 1);
+          const op = t * (1 - Easing.easeInCubic(exit));
+          return (
+            <div style={{
+              position:'absolute',
+              left: 96, top: 560, width: 460,
+              opacity: op,
+              transform:`translateX(${(1-t)*-60}px)`,
+              zIndex: 27,
+              boxShadow:'0 30px 80px rgba(0,0,0,0.55)',
+              borderLeft:'3px solid #D9613A',
+            }}>
+              <div style={{ width:'100%', height: 280, overflow:'hidden', background:'#0a1422' }}>
+                <img src="assets/clinique-bouchard.jpg" alt="Clinique Bouchard"
+                  style={{
+                    width:'100%', height:'100%', objectFit:'cover',
+                    transform:`scale(${1.04 + 0.05*t})`,
+                    transition:'none',
+                    filter:'contrast(1.05) saturate(0.95)',
+                  }}/>
+              </div>
+              <div style={{
+                padding:'18px 22px',
+                background:'#F4EFE6', color:'#0E1B2C',
+              }}>
+                <div style={{
+                  fontFamily: FONT_MONO, fontSize: 10,
+                  letterSpacing:'0.3em', color:'#A6431F', textTransform:'uppercase',
+                }}>ELSAN · Marseille</div>
+                <div style={{
+                  marginTop: 6,
+                  fontFamily: FONT_DISPLAY, fontSize: 24, fontWeight: 500,
+                  letterSpacing:'-0.02em', lineHeight: 1.05,
+                }}>Clinique Bouchard</div>
+              </div>
+            </div>
+          );
+        }}
+      </Sprite>
+
       <Sprite start={0.3} end={5.5}>
         <ChapterMarker chapter="04" year="LATE 2025" title="France: the answer." />
       </Sprite>
